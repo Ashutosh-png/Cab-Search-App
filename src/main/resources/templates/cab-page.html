@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+
+    <title>AIMCAB BOOKING</title>
+      <script>
+        function ValidateForm() {
+            var checkboxes = document.getElementsByName("cabType");
+            var checked = false;
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    checked = true;
+                    break;
+                }
+            }
+            if (!checked) {
+                alert("Please select at least one cab type.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <style>
+        .cab-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .cab-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .cab-image {
+            max-width: 400px;
+            max-height: 400px;
+        }
+        .cab-info {
+            margin-top: 10px;
+        }
+        .book-button {
+            margin-top: 10px;
+        }
+         .btn-book {
+            width: 100%;
+            padding: 12px 24px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-book:hover {
+            background-color: #ffc107;
+        }
+         .sticky-book {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+                   <h1 class="text-center">AIMCAB</h1>
+        
+            <a class="navbar-brand" href="/">Home</a>
+        </div>
+    </nav>
+    <form action="/book" method="post" onsubmit="ValidateForm()">
+     <input type="hidden" name="pickupLocation" th:value="${pickupLocation}">
+    <input type="hidden" name="dropLocation" th:value="${dropLocation}">
+    <input type="hidden" name="distance" th:value="${distance}">
+     <input type="hidden" name="name" th:value="${name}">
+    <input type="hidden" name="email" th:value="${email}">
+    <input type="hidden" name="date" th:value="${date}">
+    <input type="hidden" name="time" th:value="${time}">
+        <input type="hidden" name="triptype" th:value="${triptype}">
+    
+    
+    
+    
+    
+    
+       
+                       <div class="card mb-3">
+            <div class="card-body">
+                           <h2 class="card-title">Hey <span th:text="${name}"></span></h2>
+                 <h2>Your cab is almost ready</h2>
+                <h5 class="card-title">Pickup Location: <span th:text="${pickupLocation}"></span></h5>
+                                <h5 class="card-title">Drop Location: <span th:text="${dropLocation}"></span></h5>
+                                                <h5 class="card-title">Total distance: <span th:text="${distance}"></span></h5>
+                
+            </div>
+        </div>
+        
+        
+    
+       
+    
+        <div class="cab-grid">
+            <div class="cab-card">
+                <img src="https://imgd.aeplcdn.com/0x0/n/cw/ec/34467/wagonr-exterior-right-front-three-quarter-3.jpeg" alt="Cab 1" class="cab-image">
+                <div class="cab-info">
+                    <h3>Regular</h3>
+                    <p>Basic Cab</p>
+                    <p>Price: Rs 20/Km</p>
+                    Rs<h2 th:text="${cab1}"></h2>
+                </div>
+                <input type="checkbox" name="cabType" value="Cab 1" >
+            </div>
+            <div class="cab-card">
+                <img src="https://suritours.in/nimg/taxi-service-in-delhi.jpg" alt="Cab 2" class="cab-image">
+                <div class="cab-info">
+                    <h3>Premium</h3>
+                    <p>Premium Cab</p>
+                    <p>Price: Rs 30/Km</p>
+                     Rs <h2 th:text="${cab2}"></h2>
+                </div>
+                <input type="checkbox" name="cabType" value="Cab 2" >
+            </div>
+            <div class="cab-card">
+                <img src="https://5.imimg.com/data5/ANDROID/Default/2021/4/DA/ES/UV/112603731/product-jpeg-500x500.jpg" alt="Cab 3" class="cab-image">
+                <div class="cab-info">
+                    <h3>Luxury</h3>
+                    <p>Luxury Cab</p>
+                    <p>Price: Rs 50/km</p>
+                     Rs <h2 th:text="${cab3}"></h2>
+                </div>
+                <input type="checkbox" name="cabType" value="Cab 3" >
+            </div>
+        </div>
+         <div class="text-center sticky-book">
+            <button type="submit" class="btn btn-warning btn-lg btn-block btn-book">Book</button>
+        </div>
+       
+    </form>
+</body>
+</html>
